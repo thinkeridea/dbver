@@ -39,7 +39,10 @@
                     <p class="text-muted"><a href="mailto:<?=$log['email']?>?subject=Re<<?=$log['id']?>>: <?=$log['message']?>" class="text-success" title="<?=$log['email']?>"><?=$log['name']?></a> 在 <?=getTimeFormatText($log['dateline'])?> 调整</p>
                 </div>
                 <div class="dictionary">
-                    <p><a href="<?=U("Log", "diffLog", array('id'=>$log['id']))?>">变更对比</a></p> 
+                    <p>
+                        <a href="<?=U("Log", "diffLog", array('id'=>$log['id']))?>">变更对比</a>
+                        <a href="<?=U("Log", "rollback", array('id'=>$log['id']))?>">回滚到</a>
+                    </p>
                     <p><a href="<?=U("Index", "dictionary", array('id'=>$log['id']))?>">查看数据字典</a></p>
                 </div>
                 <div class="clearfix"></div>
@@ -53,7 +56,6 @@
                 <div class="dictionary">
                     <p>
                         <a href="<?=U("Log", "diffLog", array('id'=>$lastLog['id']))?>">变更对比</a>
-                        <a href="<?=U("Log", "rollback", array('id'=>$lastLog['id']))?>">回滚到</a>
                     </p>
                     <p><a href="<?=U("Index", "dictionary", array('id'=>$lastLog['id']))?>">查看数据字典</a></p>
                 </div>
