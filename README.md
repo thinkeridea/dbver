@@ -141,6 +141,32 @@ $config['UPGRADE']['SYNC_BIN'] = 'dbver_up.py update';
 该功能在第一次访问时自动调用同步工具进行同步，在一周内将不再自动同步，但是会在页面提示上次同步时间，以便你决定是否再次同步。
 
 
+---
+<div id="UpDiff"></div>
+## 多环境升级对比
+
+在config.php中增加以下配置开启“多环境升级对比”功能
+
+```php
+// 生产环境同步数据结构的数据库信息，配置的该帐号必须拥有创建和删除库的权限
+$config['UPGRADES'][0]['NAME'] = '';
+$config['UPGRADES'][0]['DB_HOST'] = '';
+$config['UPGRADES'][0]['DB_USER'] = '';
+$config['UPGRADES'][0]['DB_PWD'] = '';
+$config['UPGRADES'][0]['DB_PORT'] = '';
+$config['UPGRADES'][0]['DB_NAME'] = '';
+$config['UPGRADES'][0]['DB_CHARSET'] = '';
+
+// 同步工具，dbver依赖该工具来同步数据库信息
+/* 该工具接受以下参数，均为配置的同步结构的临时数据库信息：
+ * --host
+ * --user
+ * --password
+ * --dbname
+ * --port
+ */
+$config['UPGRADES'][0]['SYNC_BIN'] = '';
+```
 
 ---
 <div id="Sync"></div>

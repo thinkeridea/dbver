@@ -11,6 +11,18 @@ $config['UPGRADE']['DB_NAME'] = '';
 $config['UPGRADE']['DB_CHARSET'] = '';
 $config['UPGRADE']['SYNC_BIN'] = '';
 
+/**
+ * 多环境对比工具配置
+$config['UPGRADES'][0]['NAME'] = '';
+$config['UPGRADES'][0]['DB_HOST'] = '';
+$config['UPGRADES'][0]['DB_USER'] = '';
+$config['UPGRADES'][0]['DB_PWD'] = '';
+$config['UPGRADES'][0]['DB_PORT'] = '';
+$config['UPGRADES'][0]['DB_NAME'] = '';
+$config['UPGRADES'][0]['DB_CHARSET'] = '';
+$config['UPGRADES'][0]['SYNC_BIN'] = '';
+ */
+
 $i = $j = 0;
 // 项目数据库
 $config['SERVERS'][$i]["NAME"] = "project name";
