@@ -32,12 +32,18 @@
 </head>
 <body onload="hljs.initHighlighting()">
 <?php $this->navActive='Upgrade';$this->import('nav');?>
+<?php
+$params = array();
+if ($_GET["up_server"]){
+    $params["up_server"] = $_GET["up_server"];
+}
+?>
 <div class="container">
     <?php if($this->diffFormat['old']):?>
     <div>
         <p class="bg-warning text-danger" style="height:35px;line-height:30px;padding-left:10px;font-size:16px;">
             <span>你最近一次同步在：<?=getTimeFormatText($this->upDate)?></span>
-            <a href="<?=U("Upgrade", "update")?>" style="float:right;margin-right:20px;">重新同步</a>
+            <a href="<?=U("Upgrade", "update",$params)?>" style="float:right;margin-right:20px;">重新同步</a>
         </p>
     </div>
     <div>
@@ -73,7 +79,7 @@
     <?php else:?>
     <div class="message bg-info">
         <div class="text-danger">生产环境和版本库一致，你最近一次同步在<?=getTimeFormatText($this->upDate)?>。</div>
-        <p><a href="<?=U("Upgrade", "update")?>" class="btn btn-success btn-lg" role="button">立即同步</a></p>
+        <p><a href="<?=U("Upgrade", "update", $params)?>" class="btn btn-success btn-lg" role="button">立即同步</a></p>
     </div>
     <?php endif;?>
 </div>
