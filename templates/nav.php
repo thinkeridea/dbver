@@ -7,6 +7,7 @@ use lib\Config;
 .nav a{color:#fff;font-size:16px;}
 .nav>li>a:hover{background:#006699 !important;}
 .nav>li.active{background:#006699 !important;}
+.nav .dropdown {float: left; padding-top: 8px;}
 .navbar{border-radius:0}
 .select_box{float: right;padding-top: 8px;}
 .select_box .dropdown{margin-left: 20px;float: left;}
@@ -20,9 +21,21 @@ use lib\Config;
                 <li class="<?=$this->navActive=='Index'?'active':''?>"><a href="<?=U('Index', 'index');?>">DB字典</a></li>
                 <li class="<?=$this->navActive=='Version'?'active':''?>"><a href="<?=U('Version', 'index')?>">版本控制</a></li>
                 <li class="<?=$this->navActive=='Log'?'active':''?>"><a href="<?=U('Log', 'index');?>">历史记录</a></li>
-                <?php if (Config::$config['UPGRADE']): ?>
-                <li class="<?=$this->navActive=='Upgrade'?'active':''?>"><a href="<?=U('Upgrade', 'diff');?>">升级对比</a></li>
-                <?php endif; ?>
+                 <?php if (Config::$config['UPGRADES']): ?>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            升级对比:<?=Config::$config['UPGRADE']['NAME'];?>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <?php foreach(Config::$config['UPGRADES'] as $key=>$item):?>
+                                <li><a href="<?=U('Upgrade', 'diff', array('up_server'=>$key))?>"><?=$item['NAME']?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php elseif(Config::$config['UPGRADE']): ?>
+                    <li class="<?=$this->navActive=='Upgrade'?'active':''?>"><a href="<?=U('Upgrade', 'diff');?>">升级对比</a></li>
+                <?php endif;?>
             </ul>
             <?php if(Config::$config['SERVERS']):?>
             <div class="select_box">
