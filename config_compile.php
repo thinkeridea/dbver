@@ -32,11 +32,14 @@ mkdir(LOCAL_DATA_PATH, 0755, true);
 $config['SERVER_ENVS'] = $server['env'];
 $config['SERVER_NAME'] = $server['NAME'];
 $config['ENVS_NAME'] = $env['NAME'];
-if (isset($server["UPGRADES"])){
+if ($server["UPGRADES"]) {
     $config['UPGRADES'] = $server["UPGRADES"];
-    $config['UPGRADE'] = isset($server["UPGRADES"][$_GET["up_server"]]) ? $server["UPGRADES"][$_GET["up_server"]] : reset($server["UPGRADES"]);
 }else if (isset($server["UPGRADE"])){
     $config['UPGRADE'] = $server["UPGRADE"];
+}
+
+if (isset($config["UPGRADES"])){
+    $config['UPGRADE'] = isset($config["UPGRADES"][$_GET["up_server"]]) ? $config["UPGRADES"][$_GET["up_server"]] : reset($config["UPGRADES"]);
 }
 
 /**
