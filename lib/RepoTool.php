@@ -62,8 +62,8 @@ class RepoTool
     
     public static function upLocalPro($databaseSql, $databaseInfo,$changeSql, $message)
     {
-        $git = Git::open(LOCAL_DATA_PATH);
-        if(file_put_contents(LOCAL_DATA_PATH."database.sql", $databaseSql) !==false && file_put_contents(LOCAL_DATA_PATH."details.json", json_encode($databaseInfo) !==false) && file_put_contents(LOCAL_DATA_PATH."change.sql", $changeSql)!==false){
+    	$git = Git::open(LOCAL_DATA_PATH);
+        if(file_put_contents(LOCAL_DATA_PATH."database.sql", $databaseSql)!==false && file_put_contents(LOCAL_DATA_PATH."details.json", json_encode($databaseInfo))!==false && file_put_contents(LOCAL_DATA_PATH."change.sql", $changeSql)!==false){
             try{
                 $git->add();
                 $git->commit($message);
@@ -81,7 +81,7 @@ class RepoTool
     public static function upGitPro($databaseSql, $databaseInfo,$changeSql, $message)
     {
         $git = Git::open(GIT_DATA_PATH);
-        if(file_put_contents(GIT_DATA_PATH."database.sql", $databaseSql) !==false && file_put_contents(GIT_DATA_PATH."details.json", json_encode($databaseInfo) !==false) && file_put_contents(GIT_DATA_PATH."change.sql", $changeSql)!==false){
+        if(file_put_contents(GIT_DATA_PATH."database.sql", $databaseSql)!==false && file_put_contents(GIT_DATA_PATH."details.json", json_encode($databaseInfo))!==false && file_put_contents(GIT_DATA_PATH."change.sql", $changeSql)!==false){
             try{
                 $git->add();
                 $git->commit($message);
