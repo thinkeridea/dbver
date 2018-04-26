@@ -19,6 +19,7 @@ use lib\Config;
             <ul class="nav navbar-nav">
                 <li class="logoText">DB版本控制</li>
                 <li class="<?=$this->navActive=='Index'?'active':''?>"><a href="<?=U('Index', 'index');?>">DB字典</a></li>
+                <li class="<?=$this->navActive=='Sql'?'active':''?>"><a href="<?=U('Sql', 'index');?>">建表SQL</a></li>
                 <li class="<?=$this->navActive=='Version'?'active':''?>"><a href="<?=U('Version', 'index')?>">版本控制</a></li>
                 <li class="<?=$this->navActive=='Log'?'active':''?>"><a href="<?=U('Log', 'index');?>">历史记录</a></li>
                  <?php if (Config::$config['UPGRADES']): ?>
