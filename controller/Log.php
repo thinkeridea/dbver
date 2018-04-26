@@ -26,11 +26,12 @@ class Log extends Base
                     'pid' => $line[2],
                     'name' => $line[3],
                     'email' => $line[4],
-                    'message' => $line[5]
+                    'message' => $line[5],
+                    'init_commit' => strlen($git->run("show {$line[1]}:change.sql")) > 0,
                 );
             }
         }
-        
+
         $this->view->page = $page->pageShow();
         $this->view->data = $data;
         $this->view->display('history');

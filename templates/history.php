@@ -32,13 +32,19 @@
                 <p class="text-primary">共<?=count($item)?>次调整</p>
             </div>
             <div class="media-body">
-                <?php $lastLog = array_pop($item);?>
                 <?php foreach($item as $log):?>
                 <div class="commit-row-info">
                     <b class="media-heading"><a href="<?=U("Log", "details", array('id'=>$log['id']))?>"><?=$log['message']?></b>
                     <p class="text-muted"><a href="mailto:<?=$log['email']?>?subject=Re<<?=$log['id']?>>: <?=$log['message']?>" class="text-success" title="<?=$log['email']?>"><?=$log['name']?></a> 在 <?=getTimeFormatText($log['dateline'])?> 调整</p>
                 </div>
                 <div class="dictionary">
+                    <?php if(!$log["init_commit"]):?>
+                        <p>
+                            <a href="<?=U("Log", "diffLog", array('id'=>$lastLog['id']))?>">变更对比</a>
+                            <a href="<?=U("Sql", "index", array('id'=>$log['id']))?>">建表SQL</a>
+                        </p>
+                        <p><a href="<?=U("Index", "dictionary", array('id'=>$lastLog['id']))?>">数据字典</a></p>
+                    <?php else: ?>
                     <p>
                         <a href="<?=U("Log", "diffLog", array('id'=>$log['id']))?>">变更对比</a>
                         <a href="<?=U("Log", "rollback", array('id'=>$log['id']))?>">回滚到</a>
@@ -47,24 +53,11 @@
                         <a href="<?=U("Index", "dictionary", array('id'=>$log['id']))?>">数据字典</a>
                         <a href="<?=U("Sql", "index", array('id'=>$log['id']))?>">建表SQL</a>
                     </p>
-
+                    <?php endif;?>
                 </div>
                 <div class="clearfix"></div>
                 <hr />
                 <?php endforeach;?>
-                <?php if($lastLog):?>
-                <div class="commit-row-info">
-                    <b class="media-heading"><a href="<?=U("Log", "details", array('id'=>$lastLog['id']))?>"><?=$lastLog['message']?></a></b>
-                    <p class="text-muted"><a href="mailto:<?=$lastLog['email']?>?subject=Re<<?=$lastLog['id']?>>: <?=$lastLog['message']?>" class="text-success" title="<?=$log['email']?>"><?=$lastLog['name']?></a> 在 <?=getTimeFormatText($lastLog['dateline'])?> 调整</p>
-                </div>
-                <div class="dictionary">
-                    <p>
-                        <a href="<?=U("Log", "diffLog", array('id'=>$lastLog['id']))?>">变更对比</a>
-                        <a href="<?=U("Sql", "index", array('id'=>$log['id']))?>">建表SQL</a>
-                    </p>
-                    <p><a href="<?=U("Index", "dictionary", array('id'=>$lastLog['id']))?>">数据字典</a></p>
-                </div>
-                <?php endif; ?>
             </div>
         </div>
         <hr>
