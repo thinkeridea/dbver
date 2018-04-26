@@ -6,7 +6,6 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>建表SQL</title>
     <link type="text/css" href="<?=STATIC_PATH?>highlight/styles/solarized-dark.css" rel="stylesheet" />
     <link href="<?=STATIC_PATH?>css/bootstrap.min.css" rel="stylesheet">

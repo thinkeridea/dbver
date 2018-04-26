@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>数据库字典</title>
+    <link type="text/css" href="<?=STATIC_PATH?>highlight/styles/solarized-dark.css" rel="stylesheet" />
     <link href="<?=STATIC_PATH?>css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         table td{text-align: left;}
@@ -11,6 +12,8 @@
         <?php if($this->commitInfo): ?>
         .tableInfo {background-color: #F0FaF6}
         <?php endif; ?>
+        .tableInfo h3 a{float: right; margin-right: 10px;font-size: 16px;cursor: pointer}
+        .modal-content pre {padding:0;margin: 0;border:0;}
     </style>
 </head>
 <body>
@@ -27,7 +30,10 @@
     <div class="starter-template ">
         <?php foreach($this->details as $tableName=>$item):?>
         <div class="tableInfo  bg-white">
-            <h3><?=$tableName?> <?=$item['info'][2]?></h3>
+            <h3>
+                <?=$tableName?> <?=$item['info'][2]?>
+                <a data-toggle="modal" data-target="#tableSQLModal" title="<?=$tableName?> DLL" data-href="<?=U('Sql', 'table', array("id"=>$this->commitInfo['id'], "table"=>$tableName));?>">查看SQL</a>
+            </h3>
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
@@ -57,5 +63,40 @@
     </div>
 
 </div><!-- /.container -->
+
+<!-- Modal -->
+<div class="modal fade" id="tableSQLModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                ……
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="<?=STATIC_PATH?>js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?=STATIC_PATH?>highlight/highlight.pack.js"></script>
+<script>
+    $(function(){
+        $("#tableSQLModal").on("show.bs.modal", function(event){
+            var button = $(event.relatedTarget)
+            var modal = $(this)
+            modal.find(".modal-title").text(button.attr("title"))
+            $.get(button.attr("data-href"), function(data){
+                modal.find("div.modal-body").html("<pre><code class=\"sql\">"+data+"</code></pre>")
+            })
+        })
+
+        $("#tableSQLModal").on("shown.bs.modal", function (event) {
+            $('.modal-content pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
+        })
+    })
+</script>
 </body></html>
