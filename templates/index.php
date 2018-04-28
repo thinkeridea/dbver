@@ -69,10 +69,11 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="position:relative;">
                 ……
             </div>
         </div>
@@ -81,18 +82,36 @@
 
 <script src="<?=STATIC_PATH?>js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?=STATIC_PATH?>highlight/highlight.pack.js"></script>
+<script src="<?=STATIC_PATH?>js/clipboard.min.js"></script>
 <script>
     $(function(){
         $("#tableSQLModal").on("show.bs.modal", function(event){
             var button = $(event.relatedTarget)
             var modal = $(this)
             modal.find(".modal-title").text(button.attr("title"))
+
             $.get(button.attr("data-href"), function(data){
-                modal.find("div.modal-body").html("<pre><code class=\"sql\">"+data+"</code></pre>")
+                modal.find("div.modal-body").html("<button class=\"clipboard glyphicon glyphicon-copy\" style=\"position:absolute;right:14px;top:14px;\"></button><pre><code class=\"sql\">"+data+"</code></pre>")
             })
         })
 
         $("#tableSQLModal").on("shown.bs.modal", function (event) {
+            $('.modal-content .clipboard').each(function (i, item) {
+                var clipboard = new ClipboardJS(item, {
+                    target: function () {
+                        return $('.modal-content pre code')[0]
+                    }
+                });
+                clipboard.on('success', function(e) {
+                    alert("拷贝成功！")
+                    e.clearSelection();
+                });
+
+                clipboard.on('error', function(e) {
+                    alert("拷贝失败，请尝试手动拷贝！")
+                });
+            })
+
             $('.modal-content pre code').each(function(i, block) {
                 hljs.highlightBlock(block);
             });
